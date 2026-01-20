@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cindy PEICH | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #0a0a0a;
+      --text-white: #ffffff;
+      --accent-color: #2833c9;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    /* NAVIGATION FLUIDE */
+    nav {
+      position: fixed; top: 0; width: 100%; padding: 30px;
+      z-index: 1000; display: flex; justify-content: center;
+      transition: 0.4s; background: transparent;
+    }
+
+    nav.scrolled {
+      padding: 15px; background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    }
+
+    nav a {
+      color: white; margin: 0 20px; text-decoration: none;
+      font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;
+    }
+
+    nav.scrolled a { color: black; }
+
+    section { padding: 100px 20px; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+
+    h1 { font-size: 3.5rem; letter-spacing: 5px; text-transform: uppercase; text-align: center; }
+    h2 { margin-bottom: 50px; border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; text-transform: uppercase; letter-spacing: 3px; }
+
+    /* BEST-OF (MOSAÏQUE) */
+    .best-of-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 200px;
+      gap: 15px; width: 100%; max-width: 1100px; margin-bottom: 50px;
+    }
+    .best-item.large { grid-column: span 2; grid-row: span 2; }
+    .best-item.tall { grid-row: span 2; }
+    .best-item img { width: 100%; height: 100%; object-fit: cover; border-radius: 5px; transition: 0.5s; cursor: pointer; }
+    .best-item:hover img { transform: scale(1.03); filter: brightness(1.2); }
+
+    /* GALERIE CLASSIQUE */
+    .gallery {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px; width: 100%; max-width: 1100px;
+    }
+    .gallery img { width: 100%; height: 300px; object-fit: cover; border-radius: 8px; transition: 0.3s; cursor: pointer; }
+    .gallery img:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(40, 51, 201, 0.4); }
+
+    /* A PROPOS */
+    .apropos-content { display: flex; align-items: center; gap: 40px; justify-content: center; flex-wrap: wrap; max-width: 1000px; }
+    .photo-moi { width: 250px; height: auto; border-radius: 0; box-shadow: 0 4px 8px rgb(241, 239, 239); border: 5px solid #1a1a1a; }
+    .apropos-text { max-width: 600px; text-align: left; }
+
+    /* CONTACT */
+    form { width: 100%; max-width: 500px; display: flex; flex-direction: column; }
+    input, textarea { background: #1a1a1a; border: 1px solid #333; color: white; padding: 15px; margin-bottom: 15px; border-radius: 5px; font-family: inherit; }
+    button { background: var(--accent-color); color: white; border: none; padding: 15px; cursor: pointer; font-weight: bold; text-transform: uppercase; }
+
+    /* VISIONNEUSE */
+    #lightbox {
+      display: none; 
+      position: fixed; z-index: 2000; top: 0; left: 0; 
+      width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); 
+      justify-content: center; align-items: center; cursor: pointer;
+    }
+    #lightbox img { max-width: 90%; max-height: 85%; border: 2px solid white; cursor: default; }
+    .close-lightbox { position: absolute; top: 20px; right: 30px; color: white; font-size: 50px; font-weight: bold; }
+
+    /* PIED DE PAGE */
+    footer {
+      background-color: #050505;
+      padding: 60px 20px;
+      text-align: center;
+      border-top: 1px solid #1a1a1a;
+      width: 100%;
+    }
+    .social-links { margin-bottom: 20px; }
+    .social-links a {
+      color: white;
+      font-size: 2rem;
+      margin: 0 15px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .social-links a:hover { color: var(--accent-color); transform: scale(1.1); display: inline-block; }
+    footer p { color: #666; font-size: 0.9rem; }
+
+    @media (max-width: 768px) {
+      .best-of-grid { grid-template-columns: repeat(2, 1fr); }
+      h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="lightbox">
+    <span class="close-lightbox">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <nav id="navbar">
+    <a href="#accueil">Accueil</a>
+    <a href="#best-of">Best-of</a>
+    <a href="#galerie">Galerie</a>
+    <a href="#apropos">À propos</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="accueil">
+    <h1>Cindy PEICH</h1>
+    <p>Créatrice de souvenirs intemporels</p>
+    <a href="#best-of" class="btn-discover">Découvrir mon univers</a>
+</section>
+
+  <section id="best-of">
+    <h2>Mes Coups de Cœur</h2>
+    <div class="best-of-grid">
+      <div class="best-item large"><img src="meilleure1.jpg" alt="Favori 1"></div>
+      <div class="best-item"><img src="meileure2.jpg" alt="Favori 2"></div>
+      <div class="best-item"><img src="meilleure3.png" alt="Favori 3"></div>
+      <div class="best-item tall"><img src="meilleure4.png" alt="Favori 4"></div>
+      <div class="best-item"><img src="meilleure5.jpg" alt="Favori 5"></div>
+    </div>
+  </section>
+
+  <section id="galerie">
+    <h2>Galerie Complète</h2>
+    <div class="gallery">
+      <img src="photo4.jpg" alt="Photo 1">
+      <img src="photo5.jpg" alt="Photo 2">
+      <img src="photo6.jpg" alt="Photo 3">
+      <img src="photo7.jpg" alt="Photo 4">
+      <img src="photo8.jpg" alt="Photo 5">
+      <img src="photo9.jpg" alt="Photo 6">
+      <img src="photo10.jpg" alt="Photo 7">
+      <img src="photo11.jpg" alt="Photo 8">
+      <img src="photo12.jpg" alt="Photo 9">
+      <img src="photo13.jpg" alt="Photo 10">
+      <img src="photo14.jpg" alt="Photo 11">
+      <img src="photo15.jpg" alt="Photo 12">
+      <img src="photo16.jpg" alt="Photo 13">
+      <img src="photo17.jpg" alt="Photo 14">
+      <img src="photo18.jpg" alt="Photo 15">
+      <img src="photo19.jpg" alt="Photo 16">
+      <img src="photo20.jpg" alt="Photo 17">
+      <img src="photo21.jpg" alt="Photo 18">
+      <img src="photo22.jpg" alt="Photo 19">
+      <img src="photo23.jpg" alt="Photo 20">
+      <img src="photo24.png" alt="Photo 21">
+      <img src="photo25.jpg" alt="Photo 22">
+      <img src="photo26.jpg" alt="Photo 23">
+      <img src="photo27.jpg" alt="Photo 24">
+      <img src="photo28.jpg" alt="Photo 26">
+      <img src="photo29.jpg" alt="Photo 27">
+    </div>
+  </section>
+
+  <section id="apropos">
+    <h2>À propos de moi</h2>
+    <div class="apropos-content">
+      <img src="moi.jpg" alt="Cindy" class="photo-moi">
+      <div class="apropos-text">
+        <p>Je suis photographe amateur passionnée par les portraits et la nature. J’aime capturer l’instant et raconter une histoire à travers mes photos.</p>
+        <br>
+        <p>Mon approche consiste à chercher la lumière naturelle et les émotions spontanées pour créer des souvenirs intemporels.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Me Contacter</h2>
+    <form>
+      <form action="https://formspree.io/f/ https://formspree.io/f/mpqqjwbb " method="POST">
+  <input type="text" name="nom" placeholder="Votre Nom" required>
+  <input type="email" name="_replyto" placeholder="Votre Email" required>
+  <textarea name="message" rows="5" placeholder="Votre Message" required></textarea>
+  <button type="submit">Envoyer le message</button>
+</form>
+  </section>
+
+  <footer>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+    </div>
+    <p>&copy; 2026 Cindy PEICH - Tous droits réservés</p>
+  </footer>
+
+  <script>
+    // Menu au scroll
+    window.onscroll = function() {
+      var nav = document.getElementById('navbar');
+      if (window.pageYOffset > 50) {
+        nav.classList.add("scrolled");
+      } else {
+        nav.classList.remove("scrolled");
+      }
+    };
+
+    // Visionneuse
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    
+    document.querySelectorAll('img').forEach(img => {
+        img.onclick = function() {
+            if(this.classList.contains('photo-moi')) return;
+            lb.style.display = 'flex';
+            lbImg.src = this.src;
+        }
+    });
+
+    lb.onclick = function(e) {
+        if(e.target !== lbImg) {
+            lb.style.display = 'none';
+        }
+    };
+  </script>
+
+</body>
+</html>
